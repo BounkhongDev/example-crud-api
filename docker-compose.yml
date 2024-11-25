@@ -12,6 +12,21 @@ services:
       - crud_app_db:/var/lib/postgresql/data
     ports:
       - '2345:5432'
+    networks:
+      - prisma-network
+
+  crud_app:
+    build: .
+    depends_on:
+      - crud_app_db
+    ports:
+      - '4000:4000'
+    networks:
+      - prisma-network
 
 volumes:
   crud_app_db:
+
+networks:
+  prisma-network:
+    driver: bridge
